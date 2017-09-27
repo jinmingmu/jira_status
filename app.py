@@ -5,7 +5,7 @@ import os
 import os.path
 from flask import Flask
 from flask import make_response, redirect, url_for, \
-        send_from_directory, request, abort, after_this_request
+        send_from_directory, request, abort, after_this_request, request_started
 import argparse
 from gevent.wsgi import WSGIServer
 import json
@@ -18,20 +18,13 @@ TO_DO = 'TO DO'
 IN_PROGRESS = 'IN PROGRESS'
 
 @app.route('/',methods=["POST"])
-def jira_status():
-    '''
-       得到jira的post请求数据 
-    '''
-    print dir(request)
-    return 'jimmy'
-
-@app.route('/',methods=["POST"])
 def jira_status(key):
     '''
         当issue状态变成inprogress时检查被他block的story
         如果story数量为1, 检查story状态, 如果状态为todo
         将状态改成inprogress
     '''
+    key = request.args.get('issue')
     jira = connect_jira()
     task = jira.issue(key)
     issuelinks = task.fields.issuelinks
