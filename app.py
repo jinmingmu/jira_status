@@ -29,7 +29,7 @@ def jira_status():
     task = jira.issue(key)
     issuelinks = task.fields.issuelinks
     if len(issuelinks) == 1:
-        story = issuelinkis[0]
+        story = issuelinks[0]
         story_key = story.raw.get('outwardIssue',{}).get('key')
         story = jira.issue(story_key)
         if story.fields.status.name == TO_DO:
