@@ -18,7 +18,7 @@ TO_DO = 'TO DO'
 IN_PROGRESS = 'IN PROGRESS'
 
 @app.route('/',methods=["POST"])
-def jira_status(key):
+def jira_status():
     '''
         当issue状态变成inprogress时检查被他block的story
         如果story数量为1, 检查story状态, 如果状态为todo
@@ -42,6 +42,8 @@ def jira_status(key):
 
 
 def connect_jira():
+    Config = ConfigParser.ConfigParser()
+    Config.read('config')
     options = {
             'server': 'https://team.klook.com/jira'}
     jira = JIRA(options, basic_auth=(Config.get('User', 'user_name'), Config.get('User', 'password')))
