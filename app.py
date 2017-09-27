@@ -8,15 +8,17 @@ from flask import make_response, redirect, url_for, \
         send_from_directory, request, abort, after_this_request
 import argparse
 from gevent.wsgi import WSGIServer
+import json
 
 app = Flask(__name__)
 
-@app.route('/',methods=["GET"])
+@app.route('/',methods=["POST"])
 def jira_status():
     '''
        得到jira的post请求数据 
     '''
-    return 'lala'
+    print json.dumps(request)
+    return 'jimmy'
 
 
 def run(port):
