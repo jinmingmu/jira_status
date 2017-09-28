@@ -18,7 +18,7 @@ TO_DO = 'TO DO'
 IN_PROGRESS = 'IN PROGRESS'
 IN_PROGRESS_STORY = 'Start development'
 
-@app.route('/',methods=["POST"])
+@app.route('/task_story_inprogress',methods=["POST"])
 def jira_status():
     '''
         当issue状态变成inprogress时检查被他block的story
@@ -38,6 +38,22 @@ def jira_status():
             return 'succeed'
     return 'error'
 
+
+@app.route('/subtask_inprogress',methods=["POST"])
+def jira_status():
+    '''
+        当subtask状态改变成inprogress 如果task状态是todo 
+        改变task状态为inprogress
+    '''
+    key = request.args.get('issue')
+    jira = connect_jira()
+    task = jira.issue(key)
+    if hasattr(task.fields, 'parent'):
+        parent = task.fields.parent
+        if parent.fields.status.name == TO_DO:
+            jira.transition_issue(parent, transition= IN_PROGRESS)
+        return 'succeed'
+    return 'error'
 
 
 
