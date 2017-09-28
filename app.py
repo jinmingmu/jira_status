@@ -74,7 +74,7 @@ def task_done_story_review():
         story_issue_links = story.fields.issuelinks
         all_done = True
         for link_task in story_issue_links:
-            if link_task.inwardIssue.fields.get('name') != DONE:
+            if link_task.inwardIssue.fields.status.name != DONE:
                 all_done = False
         if all_done:
              jira.transition_issue(story, transition=IN_REVIEW_STORY)
