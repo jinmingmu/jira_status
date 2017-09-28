@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 TO_DO = 'TO DO'
 IN_PROGRESS = 'IN PROGRESS'
+IN_PROGRESS_STORY = 'Start development'
 
 @app.route('/',methods=["POST"])
 def jira_status():
@@ -33,7 +34,7 @@ def jira_status():
         story_key = story.raw.get('outwardIssue',{}).get('key')
         story = jira.issue(story_key)
         if story.fields.status.name == TO_DO:
-            jira.transition_issue(story, transition= IN_PROGRESS)
+            jira.transition_issue(story, transition= IN_PROGRESS_STORY)
             return 'succeed'
     return 'error'
 
