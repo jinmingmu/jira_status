@@ -19,7 +19,7 @@ IN_PROGRESS = 'IN PROGRESS'
 IN_PROGRESS_STORY = 'Start development'
 
 @app.route('/task_story_inprogress',methods=["POST"])
-def jira_status():
+def task_story_inprogress():
     '''
         当issue状态变成inprogress时检查被他block的story
         如果story数量为1, 检查story状态, 如果状态为todo
@@ -40,7 +40,7 @@ def jira_status():
 
 
 @app.route('/subtask_inprogress',methods=["POST"])
-def jira_status():
+def subtask_inprogress():
     '''
         当subtask状态改变成inprogress 如果task状态是todo 
         改变task状态为inprogress
