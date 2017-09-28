@@ -78,7 +78,7 @@ def task_done_story_review():
                 all_done = False
         if all_done:
              jira.transition_issue(story, transition=IN_REVIEW_STORY)
-            return 'succeed'
+             return 'succeed'
     return 'error'
 
        
